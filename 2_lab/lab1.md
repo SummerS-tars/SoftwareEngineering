@@ -120,7 +120,7 @@ npm run dev
 `.vue`文件结构  
 
 1. `<template>` : HTML or Vue模板语法定义的组件UI
-2. `<script>` : JS脚本
+2. `<script>` : JS脚本 or TS脚本
 3. `<style>` : CSS样式
 
     - 链接模块  
