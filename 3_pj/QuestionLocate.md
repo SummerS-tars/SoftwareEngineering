@@ -13,6 +13,8 @@
     - [2.4. 第二种方式使用prompt](#24-第二种方式使用prompt)
 - [3. 测试结果列举](#3-测试结果列举)
     - [3.1. 单文件更改定位测试](#31-单文件更改定位测试)
+    - [多文件更改定位测试](#多文件更改定位测试)
+    - [新功能更改定位测试](#新功能更改定位测试)
 
 ---
 
@@ -98,7 +100,7 @@ Strictly answer in following json format. Do not add any words. Do not add any c
 ]
 Do not explain the reason. Do not make up your answer. Don't miss anything because of newlines and whitespaces.
 I will give you a code summary of a Spring Boot project.
-Your task is to analyse the code summary and then try to complement "git commit message".
+Your task is to analyze the code summary and then try to complement "git commit message".
 You need to decide which function is needed to be created, deleted, or updated, and then reply with the format defined above.  
 ```
 
@@ -168,14 +170,19 @@ You need to decide which function is needed to be created, deleted, or updated, 
         ]
         ```
 
-2. 【fix: 导入了错误的HttpServletRequest和HttpServletResponse】 
+2. 【fix: 调整导出数据库时候的文件名为exported_data.zip】  
     1. Way1:  
 
         ```json
         [
             {
-                "file": "CorsFilter.java",
-                "function": "doFilter",
+                "file": "TransferController.java",
+                "function": "exportAllDbAndFs",
+                "operation": "update"
+            },
+            {
+                "file": "TransferController.java",
+                "function": "exportAllDbAndFs",
                 "operation": "update"
             }
         ]
@@ -188,8 +195,8 @@ You need to decide which function is needed to be created, deleted, or updated, 
         ```json
         [
             {
-                "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\flask\\parameters\\StartVerify.java",
-                "function": "StartVerify",
+                "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\controller\\TransferController.java",
+                "function": "exportAllDbAndFs",
                 "operation": "update"
             }
         ]
@@ -200,9 +207,169 @@ You need to decide which function is needed to be created, deleted, or updated, 
         ```json
         [
             {
-                "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\controller\\SubscriptionController.java",
-                "function": "createSubscription",
+                "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\controller\\TransferController.java",
+                "function": "exportAllDbAndFs",
                 "operation": "update"
             }
         ]
         ```
+
+        attempt3:  
+
+        ```json
+        [
+            {
+                "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\controller\\DatasetController.java",
+                "function": "exportDataset",
+                "operation": "update"
+            }
+        ]
+        ```
+
+### 多文件更改定位测试
+
+【fix: 修复了对图片进行操作时，缩略图不会更新的问题】  
+
+1. Way1:  
+
+    ```json
+    [
+        {
+            "file": "DatasetController.java",
+            "function": "processNewDataset",
+            "operation": "update"
+        },
+        {
+            "file": "TagProcessingService.java",
+            "function": "processJsonFiles",
+            "operation": "update"
+        },
+        {
+            "file": "TrainController.java",
+            "function": "updateTrainStatus",
+            "operation": "update"
+        },
+        {
+            "file": "TrainController.java",
+            "function": "queryTrainById",
+            "operation": "update"
+        },
+        {
+            "file": "DatasetController.java",
+            "function": "syncCarStatus",
+            "operation": "update"
+        },
+        {
+            "file": "VerifyController.java",
+            "function": "startValidation",
+            "operation": "update"
+        }
+    ]
+    ```
+
+2. Way2:  
+
+    attempt1:  
+
+    ```json
+    [
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\controller\\DatasetController.java",
+            "function": "processNewDataset",
+            "operation": "update"
+        }
+    ]
+    ```
+
+    attempt2:  
+
+    ```json
+    [
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\entity\\File.java",
+            "function": "update",
+            "operation": "update"
+        }
+    ]
+    ```
+
+    attempt3:  
+
+    ```json
+    [
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\flask\\parameters\\PicOps.java",
+            "function": "PicOps",
+            "operation": "update"
+        }
+    ]
+    ```
+
+### 新功能更改定位测试
+
+【更新配置：jwt认证已启用，接下来会对请求中的用户id字段进行弃用】  
+
+1. Way1:  
+
+    ```json
+    [
+        {
+            "file": "TrainController.java",
+            "function": "createNewTrain",
+            "operation": "update"
+        },
+        {
+            "file": "VerifyController.java",
+            "function": "startValidation",
+            "operation": "update"
+        }
+    ]
+    ```
+
+2. Way2:  
+
+    attempt1:  
+
+    ```json
+    [
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\configuration\\CorsConfig.java",
+            "function": "corsConfig",
+            "operation": "update"
+        },
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\configuration\\CorsConfig.java",
+            "function": "corsFilter",
+            "operation": "update"
+        }
+    ]
+    ```
+
+    attempt2:  
+
+    ```json
+    [
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\entity\\User.java",
+            "function": "userId",
+            "operation": "update"
+        },
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\entity\\CarStatus.java",
+            "function": "userId",
+            "operation": "delete"
+        }
+    ]
+    ```
+
+    attempt3:  
+
+    ```json
+    [
+        {
+            "file": "D:\\2025春\\软件工程\\前沿探索\\autodrive\\src\\main\\java\\com\\adas\\entity\\Config.java",
+            "function": "updateConfig",
+            "operation": "update"
+        }
+    ]
+    ```
